@@ -27,7 +27,8 @@ export class UserService {
         name: user.name
       },
       {
-        delay: 15000,
+        //delay: 10000, // 10 seconds for testing
+        delay: 24 * 60 * 60 * 1000, // 24 hours
         attempts: 2
       }
     )

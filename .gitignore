@@ -3,6 +3,10 @@
 /node_modules
 /build
 
+# dotenv environment variable files
+.env
+.env.prod
+
 # Logs
 logs
 *.log
@@ -37,13 +41,7 @@ structure.txt
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-.env.prod
+
 
 # temp directory
 .temp
