@@ -8,23 +8,15 @@ import { notificationQueue } from '../queue/notification.queue'
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  private generateShortId(n: number): string {
-    const characters =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    let result = ''
-    for (let i = 0; i < n; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length))
-    }
-    return result
-  }
-
   async create(createUserDto: CreateUserDto): Promise<User> {
-    return this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data: {
         id: this.generateShortId(10),
         ...createUserDto
       }
     })
+
+    return user
   }
 
   async findById(id: string): Promise<User> {
@@ -47,5 +39,15 @@ export class UsersService {
     } catch (error) {
       throw new NotFoundException(`User with ID ${id} not found`)
     }
+  }
+
+  private generateShortId(n: number): string {
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    let result = ''
+    for (let i = 0; i < n; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length))
+    }
+    return result
   }
 }
