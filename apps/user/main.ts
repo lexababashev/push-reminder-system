@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import { ValidationPipe, Logger } from '@nestjs/common'
-import {UserModule} from './src/user.module'
+import { UserModule } from './src/user.module'
 
 async function bootstrap() {
   const logger = new Logger('UserApp')

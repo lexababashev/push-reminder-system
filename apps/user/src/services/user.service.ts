@@ -1,11 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '../prisma/prisma.service'
+import { Injectable, NotFoundException, Logger } from '@nestjs/common'
+import { PrismaService } from './prisma.service'
 import { CreateUserDto } from '../dto/create-user.dto'
 import { User } from '@prisma/client'
 import { notificationQueue } from '../queue/notification.queue'
 
 @Injectable()
 export class UserService {
+  private readonly logger = new Logger(UserService.name)
+
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -15,6 +17,8 @@ export class UserService {
         ...createUserDto
       }
     })
+
+    this.logger.log(`User created successfully: ${user.id} ${user.name}`)
 
     await notificationQueue.add(
       'send-push',
@@ -45,9 +49,16 @@ export class UserService {
 
   async remove(id: string): Promise<User> {
     try {
-      return await this.prisma.user.delete({
+      const deletedUser = await this.prisma.user.delete({
         where: { id }
       })
+
+      this.logger.log(
+        `User deleted successfully: ${deletedUser.id} (${deletedUser.name})`,
+        'UserService'
+      )
+
+      return deletedUser
     } catch (error) {
       throw new NotFoundException(`User with ID ${id} not found`)
     }
