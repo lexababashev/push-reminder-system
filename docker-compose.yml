@@ -24,6 +24,40 @@ services:
     volumes:
       - redis_data:/data
 
+  user:
+    build:
+      context: .
+      dockerfile: apps/user/Dockerfile
+    container_name: push_reminder_user
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      PORT_U: 3000
+      DATABASE_URL: postgresql://admin:admin@postgres:5432/push_reminder?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "3000:3000"
+
+  notification:
+    build:
+      context: .
+      dockerfile: apps/notification/Dockerfile
+    container_name: push_reminder_notification
+    depends_on:
+      redis:
+        condition: service_started
+    environment:
+      PORT_N: 3001
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      PUSH_URL: https://webhook.site/4fc415d8-015c-49fd-96fa-e021535ae109
+    ports:
+      - "3001:3001"
+
 volumes:
   postgres_data:
   redis_data:
