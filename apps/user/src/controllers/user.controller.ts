@@ -7,27 +7,27 @@ import {
   Delete,
   HttpCode
 } from '@nestjs/common'
-import { UsersService } from './users.service'
-import { CreateUserDto } from './dto/create-user.dto'
+import { UserService } from '../services/user.service'
+import { CreateUserDto } from '../dto/create-user.dto'
 import { User } from '@prisma/client'
 
 @Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+export class UserController {
+  constructor(private readonly UserService: UserService) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto)
+    return this.UserService.create(createUserDto)
   }
 
   @Get(':id')
   async findById(@Param('id') id: string): Promise<User> {
-    return this.usersService.findById(id)
+    return this.UserService.findById(id)
   }
 
   @Delete(':id')
   @HttpCode(204)
   async remove(@Param('id') id: string): Promise<void> {
-    await this.usersService.remove(id)
+    await this.UserService.remove(id)
   }
 }
