@@ -13,7 +13,7 @@
     "db:start": "docker-compose up -d postgres",
     "db:migrate": "npx prisma migrate dev --name init",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "format": "prettier --write \"apps/**/*.ts\"",
     "test": "jest",
     "test:cov": "jest --coverage"
   },
@@ -22,7 +22,9 @@
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@prisma/client": "^6.8.2",
+    "bullmq": "^5.53.1",
     "class-validator": "^0.14.2",
+    "ioredis": "^5.6.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
