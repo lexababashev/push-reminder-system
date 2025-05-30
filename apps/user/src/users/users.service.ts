@@ -16,6 +16,18 @@ export class UsersService {
       }
     })
 
+    await notificationQueue.add(
+      'send-push',
+      {
+        userId: user.id,
+        name: user.name
+      },
+      {
+        delay: 15000,
+        attempts: 2
+      }
+    )
+
     return user
   }
 
