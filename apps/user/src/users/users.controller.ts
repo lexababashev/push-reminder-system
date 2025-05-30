@@ -10,7 +10,6 @@ import {
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { User } from '@prisma/client'
-import { notificationQueue } from '../queue/notification.queue'
 
 @Controller('users')
 export class UsersController {
@@ -18,9 +17,7 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    const user = await this.usersService.create(createUserDto)
-
-    return user
+    return this.usersService.create(createUserDto)
   }
 
   @Get(':id')
