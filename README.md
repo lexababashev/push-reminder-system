@@ -129,3 +129,6 @@ Key environment variables needed:
 - `REDIS_HOST`: Redis host
 - `REDIS_PORT`: Redis port
 - `PUSH_URL`: Webhook URL for push notification simulation
+- `POSTGRES_USER`: User name in DB
+- `POSTGRES_PASSWORD`: Password to connect to DB
+- `POSTGRES_DB`: Name of DB
