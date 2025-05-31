@@ -2,8 +2,6 @@
 
 A microservices-based system for user management and scheduled push notifications.
 
-![Microservices Architecture](https://via.placeholder.com/800x400?text=Microservices+Architecture)
-
 ## 🚀 Features
 
 - **User Management Service**: Create and manage user accounts
